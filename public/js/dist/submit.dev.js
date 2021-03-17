@@ -31,6 +31,7 @@ var id = 1; // submitAll.addEventListener("click", (e) => {
 //   });
 // });
 
+var button = $("#submitAll");
 $(".form").submit(function _callee(e) {
   var title, description, questions, config, result, _final;
 
@@ -39,6 +40,8 @@ $(".form").submit(function _callee(e) {
       switch (_context.prev = _context.next) {
         case 0:
           e.preventDefault();
+          button.empty();
+          button.append("\n  <div class=\"spinner-border text-light\" role=\"status\">\n    <span class=\"sr-only\">Loading...</span>\n  </div>\n  ");
           formArray = [];
           title = document.getElementById("form-title").value;
           description = document.getElementById("lightinp").value; // formArray.push(title);
@@ -79,24 +82,24 @@ $(".form").submit(function _callee(e) {
             },
             body: JSON.stringify(formArray)
           };
-          _context.next = 10;
+          _context.next = 12;
           return regeneratorRuntime.awrap(fetch("/create", config));
 
-        case 10:
+        case 12:
           result = _context.sent;
-          _context.next = 13;
+          _context.next = 15;
           return regeneratorRuntime.awrap(result.status);
 
-        case 13:
+        case 15:
           _final = _context.sent;
           console.log(_final);
 
           if (_final === 200 || _final === 300) {
-            alert("Form has been created.");
+            // alert("Form has been created.");
             window.location.href = "/";
           }
 
-        case 16:
+        case 18:
         case "end":
           return _context.stop();
       }

@@ -31,9 +31,16 @@ var id = 1;
 //     } else formArray[0].questions.push({ title: item.value, type: type });
 //   });
 // });
+let button = $("#submitAll");
 
 $(".form").submit(async (e) => {
   e.preventDefault();
+  button.empty();
+  button.append(`
+  <div class="spinner-border text-light" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  `);
   formArray = [];
   const title = document.getElementById("form-title").value;
   const description = document.getElementById("lightinp").value;
@@ -72,7 +79,7 @@ $(".form").submit(async (e) => {
   let final = await result.status;
   console.log(final);
   if (final === 200 || final === 300) {
-    alert("Form has been created.");
+    // alert("Form has been created.");
     window.location.href = "/";
   }
 });

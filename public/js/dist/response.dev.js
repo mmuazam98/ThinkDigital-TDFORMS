@@ -1,8 +1,8 @@
 "use strict";
 
-var input = document.getElementsByName("array[]");
 var form = $(".a");
 var formID = $("#formID").val();
+var button = $("#submit");
 var responses = document.querySelectorAll(".form-control-");
 var questions = document.querySelectorAll(".question");
 var questionID = [],
@@ -21,6 +21,8 @@ form.submit(function _callee(e) {
           e.preventDefault(); // var data = new FormData(form);
           // console.log(data);
 
+          button.empty();
+          button.append("\n  <div class=\"spinner-border text-light\" role=\"status\">\n    <span class=\"sr-only\">Loading...</span>\n  </div>\n  ");
           questionID = [];
           allResponses = [];
           responses.forEach(function (item) {
@@ -49,24 +51,24 @@ form.submit(function _callee(e) {
             },
             body: JSON.stringify(_final)
           };
-          _context.next = 10;
+          _context.next = 12;
           return regeneratorRuntime.awrap(fetch("/submit", config));
 
-        case 10:
+        case 12:
           result = _context.sent;
-          _context.next = 13;
+          _context.next = 15;
           return regeneratorRuntime.awrap(result.status);
 
-        case 13:
+        case 15:
           status = _context.sent;
 
           if (status == 200) {
-            alert("Submitted");
+            // alert("Submitted");
             window.location.href = "/done";
           } // console.log(questionID, allResponses, ques);
 
 
-        case 15:
+        case 17:
         case "end":
           return _context.stop();
       }

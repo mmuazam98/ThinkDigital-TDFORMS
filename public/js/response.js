@@ -1,6 +1,6 @@
-let input = document.getElementsByName("array[]");
 let form = $(".a");
 let formID = $("#formID").val();
+let button = $("#submit");
 const responses = document.querySelectorAll(".form-control-");
 const questions = document.querySelectorAll(".question");
 let questionID = [],
@@ -16,6 +16,12 @@ form.submit(async (e) => {
   e.preventDefault();
   // var data = new FormData(form);
   // console.log(data);
+  button.empty();
+  button.append(`
+  <div class="spinner-border text-light" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  `);
   questionID = [];
   allResponses = [];
   responses.forEach((item) => {
@@ -46,7 +52,7 @@ form.submit(async (e) => {
   let result = await fetch("/submit", config);
   let status = await result.status;
   if (status == 200) {
-    alert("Submitted");
+    // alert("Submitted");
     window.location.href = "/done";
   }
 
