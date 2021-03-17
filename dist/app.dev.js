@@ -68,11 +68,19 @@ var userMiddleware = require("./middleware/validate.js");
 app.get("/", userMiddleware.validateRegister, function (req, res) {
   if (req.name) res.redirect("/view");
 });
+app.get("/error", function (req, res) {
+  res.render("error");
+});
 app.get("/view", userMiddleware.validateRegister, function (req, res) {
   var getDetails = "SELECT Profile,userID FROM userdetails WHERE Name = '".concat(req.name, "'"); // let getForms = `SELECT formID, title, Date FROM formdetails WHERE userID = `
 
   con.query(getDetails, function (err, results) {
-    if (err) throw err; // console.log(results[0].userID);
+    if (err) {
+      req.session.destroy(function (err) {
+        res.redirect("/error");
+      });
+    } // console.log(results[0].userID);
+
 
     var id = results[0].userID,
         img = results[0].Profile;
@@ -279,6 +287,12 @@ app.get("/responses/:id", function (req, res) {
     qs.forEach(function (val, index) {
       var getValues = "SELECT questionID,selectedVal FROM userresponses WHERE questionID='".concat(val.questionID, "'");
       con.query(getValues, function (err, result) {
+        if (err) {
+          req.session.destroy(function (err) {
+            res.redirect("/error");
+          });
+        }
+
         console.log(result);
         responses.push(JSON.parse(JSON.stringify(result)));
 
@@ -327,7 +341,12 @@ app.get("/view/:id", function (req, res) {
     // console.log(value[0].title);
     var getForm = "SELECT title, type, questionID,isRequired FROM questions WHERE formID='".concat(formID, "' ORDER BY questionID ASC");
     con.query(getForm, function (err, results) {
-      if (err) throw err;
+      if (err) {
+        req.session.destroy(function (err) {
+          res.redirect("/error");
+        });
+      }
+
       var myob = JSON.parse(JSON.stringify(results)),
           len = myob.length;
       var c = 0;
@@ -353,7 +372,12 @@ app.get("/view/:id", function (req, res) {
             console.log(val.questionID);
             var getOpt = "Select questionID,val FROM mcq WHERE questionID='".concat(val.questionID, "'");
             con.query(getOpt, function (err, result) {
-              if (err) throw err;
+              if (err) {
+                req.session.destroy(function (err) {
+                  res.redirect("/error");
+                });
+              }
+
               valueMcq.push(JSON.parse(JSON.stringify(result))); // console.log(valueMcq);
 
               if (index == len - 1) {
@@ -378,12 +402,14 @@ app.get("/view/:id", function (req, res) {
 }); //create form
 
 app.get("/createForm", function (req, res) {
-  var name = req.name;
-  res.render("createForm", {
-    page: "createForm",
-    name: name
-  });
-  console.log(req.session.userID);
+  if (req.session.userID) {
+    var name = req.name;
+    res.render("createForm", {
+      page: "createForm",
+      name: name
+    });
+  } else res.redirect("/error"); // console.log(req.session.userID);
+
 });
 app.post("/submit", function (req, res) {
   var responseID = shortid.generate();
@@ -393,6 +419,12 @@ app.post("/submit", function (req, res) {
   responses.forEach(function (element, index, array) {
     var query = "INSERT INTO userresponses (formID,title,selectedVal,responseID,questionID) VALUES ('".concat(formID, "','").concat(element.title, "','").concat(element.value, "','").concat(responseID, "','").concat(element.questionID, "')");
     con.query(query, function (err, results) {
+      if (err) {
+        req.session.destroy(function (err) {
+          res.redirect("/error");
+        });
+      }
+
       res.status(200);
       res.end();
     });
@@ -443,7 +475,11 @@ app.post("/create", function (req, res) {
   });
   console.log(mcq);
   con.query(createForm, function (err, results) {
-    if (err) throw err;
+    if (err) {
+      req.session.destroy(function (err) {
+        res.redirect("/error");
+      });
+    }
 
     var createForm = function createForm() {
       return regeneratorRuntime.async(function createForm$(_context6) {

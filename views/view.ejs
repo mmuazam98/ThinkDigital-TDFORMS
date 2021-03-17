@@ -5,7 +5,8 @@
       <% form.forEach((data)=>{%>
       <div class="card">
         <span class="title"><%= data.title %></span>
-        <span id="id">#<%= data.formID %> </span>
+        <!-- <span id="id">#<%= data.formID %> </span> -->
+        <span id="id" title="Copy link"><i class="fas fa-share-alt share" data-address="<%= data.formID %>"></i></span>
         <div class="date"><%= (`${data.Date}`).substr(4,11) %> </div>
         <div class="desc"><%= data.description %></div>
         <!-- <div class="responses">Responses: 0 </div> -->
@@ -23,4 +24,6 @@
       <% } %> 
     </div>
   </section>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
 <%- include ("partials/footer") %>

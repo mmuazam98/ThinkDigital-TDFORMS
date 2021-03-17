@@ -61,3 +61,32 @@
   font-size: 30px;
   color: rgba(255, 255, 255, 0.2) !important;
 }
+#id i {
+  cursor: pointer;
+}
+@media (max-width: 767px) {
+  #view .container .card {
+    width: 550px;
+  }
+}
+@media (max-width: 600px) {
+  #view .container .card {
+    width: 480px;
+  }
+}
+@media (max-width: 520px) {
+  #view .container .card {
+    width: 420px;
+  }
+}
+@media (max-width: 440px) {
+  #view .container .card {
+    width: 370px;
+  }
+}
+
+@media (max-width: 380px) {
+  #view .container .card {
+    width: 340px;
+  }
+}

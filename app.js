@@ -55,12 +55,18 @@ const userMiddleware = require("./middleware/validate.js");
 app.get("/", userMiddleware.validateRegister, (req, res) => {
   if (req.name) res.redirect("/view");
 });
-
+app.get("/error", (req, res) => {
+  res.render("error");
+});
 app.get("/view", userMiddleware.validateRegister, (req, res) => {
   let getDetails = `SELECT Profile,userID FROM userdetails WHERE Name = '${req.name}'`;
   // let getForms = `SELECT formID, title, Date FROM formdetails WHERE userID = `
   con.query(getDetails, (err, results) => {
-    if (err) throw err;
+    if (err) {
+      req.session.destroy(function (err) {
+        res.redirect("/error");
+      });
+    }
     // console.log(results[0].userID);
     let id = results[0].userID,
       img = results[0].Profile;
@@ -179,6 +185,11 @@ app.get("/responses/:id", (req, res) => {
     qs.forEach((val, index) => {
       let getValues = `SELECT questionID,selectedVal FROM userresponses WHERE questionID='${val.questionID}'`;
       con.query(getValues, (err, result) => {
+        if (err) {
+          req.session.destroy(function (err) {
+            res.redirect("/error");
+          });
+        }
         console.log(result);
         responses.push(JSON.parse(JSON.stringify(result)));
         if (index == qs.length - 1) {
@@ -209,7 +220,11 @@ app.get("/view/:id", (req, res) => {
     // console.log(value[0].title);
     let getForm = `SELECT title, type, questionID,isRequired FROM questions WHERE formID='${formID}' ORDER BY questionID ASC`;
     con.query(getForm, (err, results) => {
-      if (err) throw err;
+      if (err) {
+        req.session.destroy(function (err) {
+          res.redirect("/error");
+        });
+      }
 
       let myob = JSON.parse(JSON.stringify(results)),
         len = myob.length;
@@ -233,7 +248,11 @@ app.get("/view/:id", (req, res) => {
             console.log(val.questionID);
             let getOpt = `Select questionID,val FROM mcq WHERE questionID='${val.questionID}'`;
             con.query(getOpt, (err, result) => {
-              if (err) throw err;
+              if (err) {
+                req.session.destroy(function (err) {
+                  res.redirect("/error");
+                });
+              }
               valueMcq.push(JSON.parse(JSON.stringify(result)));
               // console.log(valueMcq);
               if (index == len - 1) {
@@ -258,9 +277,11 @@ app.get("/view/:id", (req, res) => {
 });
 //create form
 app.get("/createForm", (req, res) => {
-  let name = req.name;
-  res.render("createForm", { page: "createForm", name: name });
-  console.log(req.session.userID);
+  if (req.session.userID) {
+    let name = req.name;
+    res.render("createForm", { page: "createForm", name: name });
+  } else res.redirect("/error");
+  // console.log(req.session.userID);
 });
 app.post("/submit", (req, res) => {
   let responseID = shortid.generate();
@@ -270,6 +291,11 @@ app.post("/submit", (req, res) => {
   responses.forEach((element, index, array) => {
     let query = `INSERT INTO userresponses (formID,title,selectedVal,responseID,questionID) VALUES ('${formID}','${element.title}','${element.value}','${responseID}','${element.questionID}')`;
     con.query(query, (err, results) => {
+      if (err) {
+        req.session.destroy(function (err) {
+          res.redirect("/error");
+        });
+      }
       res.status(200);
       res.end();
     });
@@ -315,7 +341,11 @@ app.post("/create", (req, res) => {
   });
   console.log(mcq);
   con.query(createForm, (err, results) => {
-    if (err) throw err;
+    if (err) {
+      req.session.destroy(function (err) {
+        res.redirect("/error");
+      });
+    }
     let createForm = async function () {
       try {
         details = await query(
