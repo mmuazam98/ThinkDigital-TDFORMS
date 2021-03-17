@@ -1,0 +1,26 @@
+<%- include ("partials/header") %>
+  <section id="view">
+    <div class="container">
+   <% if (form.length!=0) { %>
+      <% form.forEach((data)=>{%>
+      <div class="card">
+        <span class="title"><%= data.title %></span>
+        <span id="id">#<%= data.formID %> </span>
+        <div class="date"><%= (`${data.Date}`).substr(4,11) %> </div>
+        <div class="desc"><%= data.description %></div>
+        <!-- <div class="responses">Responses: 0 </div> -->
+        <div class="buttons">
+          <button class="btn btn-dark view" onclick="window.open('/view/<%= data.formID %>')">View Form</button>
+          <button class="btn btn-dark view" onclick="window.location.href='/responses/<%= data.formID %>'">View Responses</button>
+        </div>  
+      </div>
+      <% }) %>
+      <% } else{%>
+        <div class="empty">
+          <i class="fas fa-align-justify"></i>
+          <p>You haven't created any forms yet.</p>
+        </div>
+      <% } %> 
+    </div>
+  </section>
+<%- include ("partials/footer") %>

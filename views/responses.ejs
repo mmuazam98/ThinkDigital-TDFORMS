@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TD Forms</title>
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/responses.css">
+    <link rel="stylesheet" href="/css/nav.css">
+  </head>
+  <body>
+    
+    
+      <section id="responses">
+        <div class="container">
+          <div class="text-center">
+            <h2>Summary</h2>
+          </div>
+          <% for(let i=0;i<questions.length;i++){ %>
+              <div class="card">
+                <div class="title">
+                  <%= questions[i].title %> 
+                </div>
+                <div class="responses">
+                  <ul>
+                  <% for( let j = 0; j < responses.length; j++ ) { %>
+                    <% if (j==0) { %>
+                    <span id="total"><%= responses[j].length %> responses</span>                  
+                      
+                    <% } %>
+
+                    <% for( let k = 0; k < responses[j].length; k++ ) { %>  
+                      <% if(responses[j][k].questionID == questions[i].questionID){%>
+                        <li>
+                          <%= responses[j][k].selectedVal  %> 
+                        </li>
+                      <% } %> 
+                    <% } %>
+                  <% } %>
+                  </ul>
+                </div>
+              </div>
+        <% } %>
+        </div>
+        
+      </section>
+<%- include ("partials/footer") %>

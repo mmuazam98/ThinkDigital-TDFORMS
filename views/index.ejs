@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TD Forms</title>
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="/css/<%= typeof page !== 'undefined' ? page : '' %>.css"
+    />
+  </head>
+  <body>
+    <div class="box" id="login">
+      <h2>TD Forms</h2>
+      <form action="/login" method="POST">
+        <div class="user-box">
+          <input type="text" name="email" required />
+          <label>Username</label>
+        </div>
+        <div class="user-box">
+          <input type="password" name="password" required id="signinPass" />
+          <label>Password</label>
+          <i class="fas fa-eye" id="signInEye"></i>
+        </div>
+        <button type="submit" class="btn">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Sign In
+        </button>
+      </form>
+      <hr />
+      <h5 class="createNew">
+        Don't have an account? <a href="#" class="signup" id="showSignUp">Sign Up</a>
+      </h5>
+    </div>
+
+    <!-- signup form   -->
+    <div class="box" id="signup">
+      <h2>TD Forms</h2>
+      <form action="signup" method="POST">
+        <div class="user-box">
+          <input type="text" name="name" required />
+          <label>Name</label>
+        </div>
+        <div class="user-box">
+          <input type="email" name="email" required />
+          <label>Email Address</label>
+        </div>
+        <div class="user-box">
+          <input type="password" name="password" required id="signupPass" />
+          <label>Password</label>
+          <i class="fas fa-eye fa-eye-slash" id="signUpEye"></i>
+        </div>
+        <button type="submit" class="btn">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Sign Up
+        </button>
+      </form>
+      <hr />
+      <h5 class="createNew">
+        Already have an account? <a href="#" class="signup" id="showSignIn">Sign In</a>
+      </h5>
+    </div>
+
+    <script src="/js/<%= typeof page !== 'undefined' ? page : '' %>.js"></script>
+
+  </body>
+</html>

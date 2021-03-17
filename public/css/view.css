@@ -1,0 +1,63 @@
+/* css of  view page*/
+#view {
+  min-height: 100vh;
+  padding: 50px 0;
+}
+#view .container {
+  min-height: 100vh;
+  padding-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#view .container .card {
+  position: relative;
+  width: 600px;
+  height: 250px;
+  background-color: #243b55;
+  background: linear-gradient(#1e2d4b, #243b55);
+  margin: 20px 0;
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.2);
+}
+#view .container .card .title {
+  font-size: 25px;
+  font-weight: 600;
+  font-style: italic;
+}
+#view .container .card #id {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+#view .container .card .date {
+  font-size: 13px;
+  font-weight: 400;
+  padding: 10px 0;
+}
+#view .container .card .buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+#view .container .card .view {
+  text-align: center;
+  margin: 81px 0px 0 10px;
+  padding: 8px 15px;
+  border-radius: 10px;
+  background-color: #0e1522;
+  outline: none;
+  border: none;
+}
+#view .empty {
+  text-align: center;
+}
+#view .empty p {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.2) !important;
+}
+#view .empty i {
+  font-size: 30px;
+  color: rgba(255, 255, 255, 0.2) !important;
+}

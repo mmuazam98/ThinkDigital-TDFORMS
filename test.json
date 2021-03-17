@@ -1,0 +1,19 @@
+[
+  {
+    "type": "mcq",
+    "title": "Domain",
+    "options": ["app", "web", "iot"]
+  },
+  {
+    "type": "short",
+    "title": "Name"
+  },
+  {
+    "type": "long",
+    "title": "What have you achieved?"
+  },
+  {
+    "type": "short",
+    "title": "Regst Number"
+  }
+]
