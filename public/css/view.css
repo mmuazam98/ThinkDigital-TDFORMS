@@ -20,6 +20,7 @@
   margin: 20px 0;
   padding: 10px 15px;
   border-radius: 10px;
+  transition: 0.5s;
   box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.2);
 }
 #view .container .card .title {

@@ -15,11 +15,11 @@
       href="/css/done.css"
     />
     <script>
-      window.history.forward();
-      function noBack() { window.history.forward(); }
+        window.history.forward();
+	function noBack() { window.history.forward(); }
     </script>
     <link rel="stylesheet" href="/css/nav.css" />
-    <title>TD Forms | Submitted</title>
+    <title>TD Forms | Error</title>
   </head>
   <body onload="noBack();" 
   onpageshow="if (event.persisted) noBack();" onunload="">
@@ -27,20 +27,21 @@
 
       <div class="container-1">
         <div class="thanks">
-            <h2>Thank you.</h2> 
-            <p>Your response has been recorded.</p>
+            <h2>You've already responded.</h2> 
+            <p>You can only fill this form once. Try contacting the owner of this form.</p>
         </div>
       </div>
    
-      <script>
-        function preventBack() { 
-              window.history.forward();  
-          } 
-            
-          setTimeout("preventBack()", 0); 
-            
-          window.onunload = function () { null }; 
-      </script>
+
+    <script>
+    function preventBack() { 
+            window.history.forward();  
+        } 
+        
+        setTimeout("preventBack()", 0); 
+        
+        window.onunload = function () { null }; 
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>

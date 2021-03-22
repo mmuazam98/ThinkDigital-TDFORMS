@@ -21,6 +21,7 @@
   padding: 10px 15px;
   border-radius: 10px;
   box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.2);
+  transition: 0.5s;
 }
 #responses .container .card .title {
   font-size: 25px;
@@ -39,4 +40,30 @@ span#total {
   top: -20px;
   margin: 0 !important;
   font-size: 12px;
+}
+@media (max-width: 767px) {
+  #responses .container .card {
+    width: 550px;
+  }
+}
+@media (max-width: 600px) {
+  #responses .container .card {
+    width: 480px;
+  }
+}
+@media (max-width: 520px) {
+  #responses .container .card {
+    width: 400px;
+  }
+}
+@media (max-width: 440px) {
+  #responses .container .card {
+    width: 350px;
+  }
+}
+
+@media (max-width: 380px) {
+  #responses .container .card {
+    width: 340px;
+  }
 }

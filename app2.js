@@ -27,18 +27,18 @@ app.use(
     saveUninitialized: true,
   })
 );
-// const con = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "",
-//   database: "td-forms",
-// });
 const con = mysql.createConnection({
-  host: "sql6.freemysqlhosting.net",
-  user: "sql6399421",
-  password: "KEjd5Mwgtv",
-  database: "sql6399421",
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "td-forms",
 });
+// const con = mysql.createConnection({
+//   host: "sql6.freemysqlhosting.net",
+//   user: "sql6399421",
+//   password: "KEjd5Mwgtv",
+//   database: "sql6399421",
+// });
 
 const query = util.promisify(con.query).bind(con);
 
@@ -197,6 +197,7 @@ app.get("/responses/:id", (req, res) => {
           res.render("responses", {
             questions: qs,
             responses: responses,
+            page: "responses",
           });
         }
       });
@@ -220,10 +221,12 @@ app.get("/view/:id", (req, res) => {
     // console.log(value[0].title);
     let getForm = `SELECT title, type, questionID,isRequired FROM questions WHERE formID='${formID}' ORDER BY questionID ASC`;
     con.query(getForm, (err, results) => {
-      if (err || results.length == 0) {
-        res.redirect("/error");
+      if (err) {
+        req.session.destroy(function (err) {
+          res.redirect("/error");
+        });
       }
-
+      console.log(results);
       let myob = JSON.parse(JSON.stringify(results)),
         len = myob.length;
       let c = 0;
@@ -401,8 +404,65 @@ app.post("/create", (req, res) => {
     // );
   });
 });
-app.get("/error/filled", (req, res) => {
-  res.render("alreadyFilled", { page: "alreadyFilled" });
+app.get("/profile", (req, res) => {
+  if (req.session.userID) {
+    let getDetails = `SELECT * FROM userdetails WHERE userID='${req.session.userID}'`;
+    con.query(getDetails, (err, results) => {
+      let name = results[0].Name,
+        email = results[0].Email,
+        profile = results[0].Profile;
+      res.render("profile", {
+        page: "profile",
+        name: name,
+        email: email,
+        profile: profile,
+      });
+    });
+  }
+});
+
+const storage = multer.diskStorage({
+  destination: "./public/uploads/",
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname));
+  },
+});
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1000000 },
+  fileFilter: function (req, file, cb) {
+    checkFileType(file, cb);
+  },
+}).single("myImage");
+
+// Check File Type
+function checkFileType(file, cb) {
+  // Allowed ext
+  const filetypes = /jpeg|jpg|png|gif/;
+  // Check ext
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  // Check mime
+  const mimetype = filetypes.test(file.mimetype);
+
+  if (mimetype && extname) {
+    return cb(null, true);
+  } else {
+    cb("Error: Images Only!");
+  }
+}
+app.post("/update", (req, res) => {
+  console.log(req.body);
+  upload(req, res, (err) => {
+    if (err) {
+      throw err;
+    } else {
+      if (req.body.profile == undefined) {
+        res.redirect("/profile");
+      } else {
+        console.log("hi");
+      }
+    }
+  });
 });
 //  https://stackoverflow.com/questions/8899802/how-do-i-do-a-bulk-insert-in-mysql-using-node-js/52030566#52030566
 const PORT = process.env.PORT || 5000;

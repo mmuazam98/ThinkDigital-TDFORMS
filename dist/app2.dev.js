@@ -38,19 +38,19 @@ app.use(session({
   secret: "ilu>c8cs",
   resave: true,
   saveUninitialized: true
-})); // const con = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "",
-//   database: "td-forms",
+}));
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "td-forms"
+}); // const con = mysql.createConnection({
+//   host: "sql6.freemysqlhosting.net",
+//   user: "sql6399421",
+//   password: "KEjd5Mwgtv",
+//   database: "sql6399421",
 // });
 
-var con = mysql.createConnection({
-  host: "sql6.freemysqlhosting.net",
-  user: "sql6399421",
-  password: "KEjd5Mwgtv",
-  database: "sql6399421"
-});
 var query = util.promisify(con.query).bind(con);
 app.set("view engine", "ejs");
 app.use(bodyparser.json());
@@ -300,7 +300,8 @@ app.get("/responses/:id", function (req, res) {
           console.log(responses);
           res.render("responses", {
             questions: qs,
-            responses: responses
+            responses: responses,
+            page: "responses"
           });
         }
       });
@@ -341,10 +342,13 @@ app.get("/view/:id", function (req, res) {
     // console.log(value[0].title);
     var getForm = "SELECT title, type, questionID,isRequired FROM questions WHERE formID='".concat(formID, "' ORDER BY questionID ASC");
     con.query(getForm, function (err, results) {
-      if (err || results.length == 0) {
-        res.redirect("/error");
+      if (err) {
+        req.session.destroy(function (err) {
+          res.redirect("/error");
+        });
       }
 
+      console.log(results);
       var myob = JSON.parse(JSON.stringify(results)),
           len = myob.length;
       var c = 0;
@@ -546,9 +550,65 @@ app.post("/create", function (req, res) {
     // );
   });
 });
-app.get("/error/filled", function (req, res) {
-  res.render("alreadyFilled", {
-    page: "alreadyFilled"
+app.get("/profile", function (req, res) {
+  if (req.session.userID) {
+    var getDetails = "SELECT * FROM userdetails WHERE userID='".concat(req.session.userID, "'");
+    con.query(getDetails, function (err, results) {
+      var name = results[0].Name,
+          email = results[0].Email,
+          profile = results[0].Profile;
+      res.render("profile", {
+        page: "profile",
+        name: name,
+        email: email,
+        profile: profile
+      });
+    });
+  }
+});
+var storage = multer.diskStorage({
+  destination: "./public/uploads/",
+  filename: function filename(req, file, cb) {
+    cb(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname));
+  }
+});
+var upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1000000
+  },
+  fileFilter: function fileFilter(req, file, cb) {
+    checkFileType(file, cb);
+  }
+}).single("myImage"); // Check File Type
+
+function checkFileType(file, cb) {
+  // Allowed ext
+  var filetypes = /jpeg|jpg|png|gif/; // Check ext
+
+  var extname = filetypes.test(path.extname(file.originalname).toLowerCase()); // Check mime
+
+  var mimetype = filetypes.test(file.mimetype);
+
+  if (mimetype && extname) {
+    return cb(null, true);
+  } else {
+    cb("Error: Images Only!");
+  }
+}
+
+app.post("/update", function (req, res) {
+  console.log(req.body);
+  upload(req, res, function (err) {
+    if (err) {
+      throw err;
+    } else {
+      if (req.body.profile == undefined) {
+        res.redirect("/profile");
+      } else {
+        console.log("hi");
+      }
+    }
   });
 }); //  https://stackoverflow.com/questions/8899802/how-do-i-do-a-bulk-insert-in-mysql-using-node-js/52030566#52030566
 

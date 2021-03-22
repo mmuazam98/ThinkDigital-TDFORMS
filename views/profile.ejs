@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+      <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" type="text/css" href="profileone.css">
+      <link rel="stylesheet" type="text/css" href="/css/profile.css">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="icon" href="images/Logo.png" type="image/ico" />
+    <title>Profile</title>
+   </head>
+   <body>
+    <div class="container">
+      <%= typeof msg !== 'undefined' ? msg : ''  %> 
+         <div class="box" id="signup">
+            <form action="/update" method="POST">
+                <div class="profile-pic">
+                    <img alt="User Pic" src="images/<%= profile %> " id="profile-image1" height="200">
+                    <input id="profile-image-upload" class="hidden" type="file" name="profile" onchange="previewFile()" >
+                    <div style="color:#999;" >  </div>
+                    <i class="fas fa-edit edit"></i>
+                 </div>
+                 <div class="user-box">
+                <input type="text" name="name" value="<%= name %> " required autocomplete="off"/>
+                <label>Name</label>
+              </div>
+              <div class="user-box">
+                <input type="email" name="email" value="<%= email %> " required autocomplete="off"/>
+                <label>Email Address</label>
+              </div>
+              <div class="user-box">
+                <input type="password" name="password" required id="password" autocomplete="off"/>
+                <label>Password</label>
+              </div>
+              <button type="submit" class="btn">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Update
+              </button>
+            </form>
+          
+          </div>
+      </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <script src="js/profile.js"></script>
+   </body>
+</html>
+
