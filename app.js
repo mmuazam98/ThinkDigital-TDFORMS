@@ -290,9 +290,7 @@ app.post("/submit", (req, res) => {
     let query = `INSERT INTO userresponses (formID,title,selectedVal,responseID,questionID) VALUES ('${formID}','${element.title}','${element.value}','${responseID}','${element.questionID}')`;
     con.query(query, (err, results) => {
       if (err) {
-        req.session.destroy(function (err) {
-          res.redirect("/error");
-        });
+        res.redirect("/error");
       }
       res.status(200);
       res.end();

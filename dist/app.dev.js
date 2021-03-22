@@ -418,9 +418,7 @@ app.post("/submit", function (req, res) {
     var query = "INSERT INTO userresponses (formID,title,selectedVal,responseID,questionID) VALUES ('".concat(formID, "','").concat(element.title, "','").concat(element.value, "','").concat(responseID, "','").concat(element.questionID, "')");
     con.query(query, function (err, results) {
       if (err) {
-        req.session.destroy(function (err) {
-          res.redirect("/error");
-        });
+        res.redirect("/error");
       }
 
       res.status(200);
