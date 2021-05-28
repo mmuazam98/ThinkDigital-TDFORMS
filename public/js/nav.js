@@ -11,6 +11,10 @@ hamburger.addEventListener("click", () => {
   //Hamburger Animation
   hamburger.classList.toggle("toggle");
 });
+let logo = document.getElementById("mlogo");
+logo.addEventListener("click", () => {
+  window.location.href = "/view";
+});
 // let preventBack = () => {
 //   window.history.forward();
 // };
