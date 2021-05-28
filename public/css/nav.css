@@ -29,6 +29,7 @@ nav {
 .logo {
   padding: 20px;
   text-align: center;
+  cursor: pointer;
 }
 .logo img {
   height: 80px;

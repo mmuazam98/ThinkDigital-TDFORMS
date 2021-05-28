@@ -1,9 +1,9 @@
 let form = $(".a");
-let formID = $("#formID").val();
+// let form_ID = $("#form_ID").val();
 let button = $("#submit");
 let url = window.location.href;
 let pathname = new URL(url).pathname;
-// let formID = pathname.substr(6);
+// let form_ID = pathname.substr(6);
 let data = [];
 
 const responses = document.querySelectorAll(".form-control-");
@@ -13,7 +13,7 @@ let questionID = [],
   ques = [],
   final = [
     {
-      formID: formID,
+      formID: form_ID,
       responses: [],
     },
   ];
@@ -31,14 +31,14 @@ $(document).ready(function () {
   let arr = [];
   retrievedData = localStorage.getItem("forms");
   arr = JSON.parse(retrievedData);
-  if (arr.indexOf(formID) !== -1) window.location.href = "/error/filled";
+  if (arr.indexOf(form_ID) !== -1) window.location.href = "/error/filled";
   // alert(arr);
 });
 form.submit(async (e) => {
   e.preventDefault();
   // var data = new FormData(form);
   // console.log(data);
-  data.push(formID);
+  data.push(form_ID);
   localStorage.setItem("forms", JSON.stringify(data));
   button.empty();
   button.append(`
@@ -73,12 +73,12 @@ form.submit(async (e) => {
     },
     body: JSON.stringify(final),
   };
-  if (arr.indexOf(formID) == -1) {
+  if (arr.indexOf(form_ID) == -1) {
     let result = await fetch("/submit", config);
     let status = await result.status;
     if (status == 200) {
       // alert("Submitted");
-      arr.push(formID);
+      arr.push(form_ID);
       localStorage.setItem("forms", JSON.stringify(arr));
       window.location.href = "/done";
     }

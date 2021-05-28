@@ -1,36 +1,7 @@
 "use strict";
 
 var formArray = [];
-var id = 1; // submitAll.addEventListener("click", (e) => {
-//   // onSubmission();
-//   e.preventDefault();
-//   formArray = [];
-//   const title = document.getElementById("form-title").value;
-//   const description = document.getElementById("lightinp").value;
-//   // formArray.push(title);
-//   // formArray.push(description);
-//   formArray.push({ title: title, description: description, questions: [] });
-//   // console.log(formArray);
-//   // console.log(formArray[0].questions);
-//   const questions = document.querySelectorAll(".questionTitle");
-//   questions.forEach((item) => {
-//     type = item.dataset.type;
-//     if (type == "mcq" || type == "check") {
-//       optionsArray = [];
-//       option = item.dataset.option;
-//       const options = document.querySelectorAll(`.${option}`);
-//       options.forEach((element) => {
-//         optionsArray.push(element.value);
-//       });
-//       formArray[0].questions.push({
-//         title: item.value,
-//         type: type,
-//         options: optionsArray,
-//       });
-//     } else formArray[0].questions.push({ title: item.value, type: type });
-//   });
-// });
-
+var id = 1;
 var button = $("#submitAll");
 $(".form").submit(function _callee(e) {
   var title, description, questions, config, result, _final;
@@ -87,19 +58,15 @@ $(".form").submit(function _callee(e) {
 
         case 12:
           result = _context.sent;
-          _context.next = 15;
-          return regeneratorRuntime.awrap(result.status);
-
-        case 15:
-          _final = _context.sent;
+          _final = result.status;
           console.log(_final);
 
-          if (_final === 200 || _final === 300) {
+          if (_final === 200 || _final === 201) {
             // alert("Form has been created.");
-            window.location.href = "/";
+            window.location.href = "/view";
           }
 
-        case 18:
+        case 16:
         case "end":
           return _context.stop();
       }

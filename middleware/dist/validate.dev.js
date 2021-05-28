@@ -1,4 +1,6 @@
-const validateRegister = (req, res, next) => {
+"use strict";
+
+var validateRegister = function validateRegister(req, res, next) {
   if (req.session.name) {
     req.name = req.session.name;
     next();
@@ -7,4 +9,5 @@ const validateRegister = (req, res, next) => {
     res.redirect("/");
   }
 };
+
 module.exports = validateRegister;

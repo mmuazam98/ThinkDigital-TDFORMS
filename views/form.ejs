@@ -10,8 +10,11 @@
       let form_ID = path_name.substr(6);
       let array = [];
       let retrieved_Data = localStorage.getItem("forms");
-      array = JSON.parse(retrieved_Data);
-      if (array.indexOf(form_ID) !== -1) window.location.href = "/error/filled";
+      if(array.length){
+         array = JSON.parse(retrieved_Data);
+         if (array.indexOf(form_ID) !== -1) window.location.href = "/error/filled";
+      }
+     
     </script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
@@ -21,7 +24,7 @@
     <!-- <link rel="icon" href="images/Logo.png" type="image/ico" /> -->
   </head>
     <body>
-      <input type="text" id="formID" value="<%= formID  %>" disabled style="display: none;">
+      
       
       <div class="form-title-1"></div>
       <div class="form-title-2">

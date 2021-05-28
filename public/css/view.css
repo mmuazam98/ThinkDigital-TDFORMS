@@ -1,20 +1,34 @@
 /* css of  view page*/
 #view {
   min-height: 100vh;
-  padding: 50px 0;
+  padding: 0px 0 50px;
 }
 #view .container {
+  position: relative;
   min-height: 100vh;
-  padding-top: 100px;
+  padding-top: 118px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
+#view .container .sort {
+  position: absolute;
+  top: 100px;
+  right: 10px;
+  cursor: pointer;
+}
+#view .container .sort i {
+  border-top: 1px solid white;
+  /* border-radius: 50%; */
+  padding: 10px;
+  /* margin: 10px 0; */
+}
+
 #view .container .card {
   position: relative;
   width: 600px;
-  height: 250px;
+  min-height: 250px;
   background-color: #243b55;
   background: linear-gradient(#1e2d4b, #243b55);
   margin: 20px 0;
@@ -33,14 +47,16 @@
   right: 15px;
   top: 15px;
 }
+
 #view .container .card .date {
   font-size: 13px;
   font-weight: 400;
   padding: 10px 0;
 }
 #view .container .card .buttons {
-  display: flex;
-  justify-content: flex-end;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
 }
 #view .container .card .view {
   text-align: center;
@@ -64,6 +80,45 @@
 }
 #id i {
   cursor: pointer;
+}
+#view .container .card .isActive {
+  position: absolute;
+  top: 15px;
+  right: 40px;
+  font-size: 12px !important;
+  padding: 0 5px 1px;
+  border-radius: 18px;
+  cursor: pointer;
+}
+#view .container .card .active {
+  color: green;
+  border: 1px solid green;
+}
+#view .container .card .active i {
+  color: green;
+  font-size: 10px !important;
+}
+#view .container .card .active:hover {
+  background-color: rgba(0, 151, 0, 0.699);
+  color: #fff;
+}
+#view .container .card .active:hover i {
+  color: #fff;
+}
+#view .container .card .disabled {
+  color: red;
+  border: 1px solid red;
+}
+#view .container .card .disabled i {
+  color: red;
+  font-size: 10px !important;
+}
+#view .container .card .disabled:hover {
+  background-color: red;
+  color: #fff;
+}
+#view .container .card .disabled:hover i {
+  color: #fff;
 }
 @media (max-width: 767px) {
   #view .container .card {

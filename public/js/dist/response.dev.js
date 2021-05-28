@@ -1,10 +1,10 @@
 "use strict";
 
-var form = $(".a");
-var formID = $("#formID").val();
+var form = $(".a"); // let form_ID = $("#form_ID").val();
+
 var button = $("#submit");
 var url = window.location.href;
-var pathname = new URL(url).pathname; // let formID = pathname.substr(6);
+var pathname = new URL(url).pathname; // let form_ID = pathname.substr(6);
 
 var data = [];
 var responses = document.querySelectorAll(".form-control-");
@@ -13,7 +13,7 @@ var questionID = [],
     allResponses = [],
     ques = [],
     _final = [{
-  formID: formID,
+  formID: form_ID,
   responses: []
 }]; //local storage
 
@@ -31,7 +31,7 @@ $(document).ready(function () {
   var arr = [];
   retrievedData = localStorage.getItem("forms");
   arr = JSON.parse(retrievedData);
-  if (arr.indexOf(formID) !== -1) window.location.href = "/error/filled"; // alert(arr);
+  if (arr.indexOf(form_ID) !== -1) window.location.href = "/error/filled"; // alert(arr);
 });
 form.submit(function _callee(e) {
   var i, config, result, status;
@@ -42,7 +42,7 @@ form.submit(function _callee(e) {
           e.preventDefault(); // var data = new FormData(form);
           // console.log(data);
 
-          data.push(formID);
+          data.push(form_ID);
           localStorage.setItem("forms", JSON.stringify(data));
           button.empty();
           button.append("\n  <div class=\"spinner-border text-light\" role=\"status\">\n    <span class=\"sr-only\">Loading...</span>\n  </div>\n  ");
@@ -75,7 +75,7 @@ form.submit(function _callee(e) {
             body: JSON.stringify(_final)
           };
 
-          if (!(arr.indexOf(formID) == -1)) {
+          if (!(arr.indexOf(form_ID) == -1)) {
             _context.next = 22;
             break;
           }
@@ -93,7 +93,7 @@ form.submit(function _callee(e) {
 
           if (status == 200) {
             // alert("Submitted");
-            arr.push(formID);
+            arr.push(form_ID);
             localStorage.setItem("forms", JSON.stringify(arr));
             window.location.href = "/done";
           }

@@ -1,36 +1,5 @@
 var formArray = [];
 var id = 1;
-
-// submitAll.addEventListener("click", (e) => {
-//   // onSubmission();
-//   e.preventDefault();
-//   formArray = [];
-//   const title = document.getElementById("form-title").value;
-//   const description = document.getElementById("lightinp").value;
-//   // formArray.push(title);
-//   // formArray.push(description);
-//   formArray.push({ title: title, description: description, questions: [] });
-//   // console.log(formArray);
-//   // console.log(formArray[0].questions);
-//   const questions = document.querySelectorAll(".questionTitle");
-//   questions.forEach((item) => {
-//     type = item.dataset.type;
-
-//     if (type == "mcq" || type == "check") {
-//       optionsArray = [];
-//       option = item.dataset.option;
-//       const options = document.querySelectorAll(`.${option}`);
-//       options.forEach((element) => {
-//         optionsArray.push(element.value);
-//       });
-//       formArray[0].questions.push({
-//         title: item.value,
-//         type: type,
-//         options: optionsArray,
-//       });
-//     } else formArray[0].questions.push({ title: item.value, type: type });
-//   });
-// });
 let button = $("#submitAll");
 
 $(".form").submit(async (e) => {
@@ -76,11 +45,11 @@ $(".form").submit(async (e) => {
   };
   let result = await fetch("/create", config);
 
-  let final = await result.status;
+  let final = result.status;
   console.log(final);
-  if (final === 200 || final === 300) {
+  if (final === 200 || final === 201) {
     // alert("Form has been created.");
-    window.location.href = "/";
+    window.location.href = "/view";
   }
 });
 

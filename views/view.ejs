@@ -2,10 +2,20 @@
   <section id="view">
     <div class="container">
    <% if (form.length!=0) { %>
+      <div class="sort">
+        <p>Sort 
+            <i class="fa fa-arrow-up arrow" aria-hidden="true" id="up" title="Oldest first"></i>
+            <i class="fa fa-arrow-down arrow" aria-hidden="true" id="down" title="Newest first"></i></p>
+      </div>
       <% form.forEach((data)=>{%>
       <div class="card" id="<%= data.formID %>">
         <span class="title"><%= data.title %></span>
         <!-- <span id="id">#<%= data.formID %> </span> -->
+        <% if (data.isActive=="true") { %>
+          <span class="isActive active" data-formid=<%= data.formID %>><i class="far fa-eye"></i> Active</span>  
+        <% } else {%>
+          <span class="isActive disabled" data-formid=<%= data.formID %>><i class="far fa-eye-slash"></i> Disabled</span>  
+        <% } %>
         <span id="id" title="Copy link"><i class="fas fa-share-alt share" data-address="<%= data.formID %>"></i></span>
         <div class="date"><%= (`${data.Date}`).substr(4,11) %> </div>
         <div class="desc"><%= data.description %></div>
