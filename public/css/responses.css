@@ -7,6 +7,20 @@
   background: linear-gradient(#141e30, #243b55);
   padding: 40px 0;
 }
+#responses .container .pages {
+  text-align: center;
+}
+#responses .container .pages button {
+  color: white;
+  border-radius: 0;
+  margin: 0 10px;
+}
+#responses .container .pages button:hover {
+  border-bottom: 3px solid #03e9f4;
+}
+#responses .container .pages button.curr {
+  border-bottom: 3px solid #03e9f4;
+}
 #responses .container .text-left {
   text-align: center;
 }
