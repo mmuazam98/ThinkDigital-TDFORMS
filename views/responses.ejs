@@ -28,6 +28,15 @@
           </div>
           <div class="text-left">
             <h3><%= (responses[0].length) %> Response(s)</h3>
+            <div class="pages">
+              <button class="btn curr">
+                Summary 
+              </button>
+              <button class="btn" onclick="window.location.href='/responses/<%=formID%>/<%=respId%>'">
+                Individual 
+              </button>
+            </div>
+            
           </div>
           <% for(let i=0;i<questions.length;i++){ %>
               <div class="card">

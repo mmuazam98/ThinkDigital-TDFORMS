@@ -62,8 +62,12 @@ router.post("/update", async (req, res) => {
 router.get("/responses/:id", userMiddleware, async (req, res) => {
   let formID = req.params.id;
   let details = await query(`SELECT * FROM formdetails WHERE formID='${formID}'`);
-  console.log(details[0].title);
-  console.log(details[0].description);
+  // console.log(details[0].title);
+  // console.log(details[0].description);
+  let responseID = await query(
+    `SELECT responseID FROM userresponses WHERE formID='${formID}'`
+  );
+  let respId = responseID[0].responseID;
   let getQuestions = `SELECT questionID,title FROM questions WHERE formID='${formID}'`;
 
   let questions = await query(getQuestions);
@@ -76,12 +80,46 @@ router.get("/responses/:id", userMiddleware, async (req, res) => {
     responses.push(parse(response));
     if (index == qs.length - 1) {
       res.render("responses", {
+        page: "responses",
         questions: qs,
         responses: responses,
         title: details[0].title,
+        respId,
+        formID,
         description: details[0].description,
       });
     }
+  });
+});
+router.get("/responses/:id/:response", userMiddleware, async (req, res) => {
+  //localhost:5000/responses/r_Sc-oQ6m/BKfZ9EDcg
+  let formID = req.params.id;
+  let responseId = req.params.response;
+  let details = await query(`SELECT * FROM formdetails WHERE formID='${formID}'`);
+
+  let total = await query(
+    `SELECT DISTINCT responseID FROM userresponses WHERE formID = '${formID}'`
+  );
+
+  total = parse(total);
+  let responsesArr = [];
+  total.forEach((t) => {
+    responsesArr.push(t.responseID);
+  });
+  console.log(responsesArr);
+  let response = await query(
+    `SELECT * FROM userresponses, questions WHERE userresponses.questionID=questions.questionID AND userresponses.responseID='${responseId}'`
+  );
+  response = parse(response);
+  res.render("oneResponse", {
+    page: "oneResponse",
+    responses: response,
+    total,
+    formID,
+    responseId,
+    responsesArr,
+    title: details[0].title,
+    description: details[0].description,
   });
 });
 
