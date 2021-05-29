@@ -12,11 +12,17 @@ const uniqid = require("uniqid");
 //   password: "",
 //   database: "td-forms",
 // });
+// const con = mysql.createConnection({
+//   host: "remotemysql.com",
+//   user: "EiK0AGjAQm",
+//   password: "6shuEuE0XY",
+//   database: "EiK0AGjAQm",
+// });
 const con = mysql.createConnection({
-  host: "remotemysql.com",
-  user: "EiK0AGjAQm",
-  password: "6shuEuE0XY",
-  database: "EiK0AGjAQm",
+  host: "sql6.freesqldatabase.com",
+  user: "sql6415699",
+  password: "bw2N8KGwB2",
+  database: "sql6415699",
 });
 router.get("/", (req, res) => {
   if (req.name) res.redirect("/view");

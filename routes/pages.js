@@ -13,12 +13,19 @@ const userMiddleware = require("../middleware/validate.js");
 //   password: "",
 //   database: "td-forms",
 // });
+// const con = mysql.createConnection({
+//   host: "remotemysql.com",
+//   user: "EiK0AGjAQm",
+//   password: "6shuEuE0XY",
+//   database: "EiK0AGjAQm",
+// });
 const con = mysql.createConnection({
-  host: "remotemysql.com",
-  user: "EiK0AGjAQm",
-  password: "6shuEuE0XY",
-  database: "EiK0AGjAQm",
+  host: "sql6.freesqldatabase.com",
+  user: "sql6415699",
+  password: "bw2N8KGwB2",
+  database: "sql6415699",
 });
+
 const query = util.promisify(con.query).bind(con);
 const parse = (x) => {
   return JSON.parse(JSON.stringify(x));
