@@ -7,8 +7,27 @@
   background: linear-gradient(#141e30, #243b55);
   padding: 40px 0;
 }
-#response .pagination ul {
+#response .pagination-container {
+  max-width: 310px;
+  overflow-x: scroll;
+}
+
+.pagination-container::-webkit-scrollbar {
+  width: 1em;
+}
+
+.pagination-container::-webkit-scrollbar-track {
+  background: #243b55;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.pagination-container::-webkit-scrollbar-thumb {
+  background-color: #141e30;
+  outline: 1px solid #243b55;
+}
+#response .pagination {
   margin: 20px auto 0;
+  /* border-radius: 0; */
 }
 #response .container .pages {
   text-align: center;
@@ -24,14 +43,29 @@
 #response .container .pages button.curr {
   border-bottom: 3px solid #03e9f4;
 }
+.pagination li {
+  margin: 0 10px 0 0;
+}
 .pagination > li > a {
   background-color: #243b55;
+  background-color: #1e2d4b;
+  background-image: -webkit-linear-gradient(#1e2d4b, #243b55);
+  background-image: -moz-linear-gradient(#1e2d4b, #243b55);
+  background-image: -ms-linear-gradient(#1e2d4b, #243b55);
+  background-image: -o-linear-gradient(#1e2d4b, #243b55);
+  background-image: linear-gradient(#1e2d4b, #243b55);
   color: #fff;
+  border: none;
+  border-radius: 3px;
 }
 .pagination > .active > a {
   color: white;
-  background-color: #141e30 !important;
-  border: solid 1px #fff !important;
+  background-image: -webkit-linear-gradient(#121a2c, #243b55);
+  background-image: -moz-linear-gradient(#121a2c, #243b55);
+  background-image: -ms-linear-gradient(#121a2c, #243b55);
+  background-image: -o-linear-gradient(#121a2c, #243b55);
+  background-image: linear-gradient(#121a2c, #243b55);
+  border: solid 1px #03e9f4 !important;
 }
 .pagination > li > a:focus,
 .pagination > li > a:hover,
@@ -171,4 +205,32 @@ span#total {
   background-image: -ms-linear-gradient(#121a2c, #243b55);
   background-image: -o-linear-gradient(#121a2c, #243b55);
   background-image: linear-gradient(#121a2c, #243b55);
+}
+#paging {
+  padding: 0 20px 20px 20px;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+#paging a {
+  color: #000;
+  background: #e0e0e0;
+  padding: 8px 12px;
+  margin-right: 5px;
+  text-decoration: none;
+}
+
+#paging a.aktif {
+  background: #000 !important;
+  color: #fff;
+}
+
+#paging a:hover {
+  border: 1px solid #000;
+}
+#paging #listPage li {
+  display: none !important;
+}
+.hidden {
+  display: none;
 }
