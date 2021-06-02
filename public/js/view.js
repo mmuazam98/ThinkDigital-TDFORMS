@@ -12,7 +12,9 @@ function copyStringToClipboard(str) {
 $(".share").click(function () {
   let formID = $(this).data("address");
   let url = window.location.host;
-  let finalURL = url + "/view/" + formID;
+
+  let finalURL =
+    (url.includes("localhost") ? "http://" : "https://") + url + "/view/" + formID;
   copyStringToClipboard(finalURL);
   alert("Link has been copied to clipboard.");
 });
